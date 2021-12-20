@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "api": "npm run dev --workspaces=api"
+    "api": "npm run dev --workspace=api",
+    "svelte": "npm run dev --workspace=svelte"
   },
   "workspaces": [
     "packages/*"
