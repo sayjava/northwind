@@ -1,0 +1,164 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator typegraphql {
+  provider = "typegraphql-prisma"
+  output   = "../prisma/generated/type-graphql"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:../northwind.sqlite"
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+  output   = "../erd.svg"
+}
+
+model Category {
+  Id           Int       @id @default(autoincrement())
+  CategoryName String
+  Description  String
+  Products     Product[]
+}
+
+model Customer {
+  Id           String @id @unique
+  CompanyName  String
+  ContactName  String
+  ContactTitle String
+  Address      String
+  City         String
+  Region       String
+  PostalCode   String
+  Country      String
+  Phone        String
+  Fax          String
+
+  Orders Order[]
+}
+
+model Employee {
+  Id              Int    @id @default(autoincrement())
+  LastName        String
+  FirstName       String
+  Title           String
+  TitleOfCourtesy String
+  BirthDate       String
+  HireDate        String
+  Address         String
+  City            String
+  Region          String
+  PostalCode      String
+  Country         String
+  HomePhone       String
+  Extension       String
+  Notes           String
+  ReportsTo       Int?
+  PhotoPath       String
+
+  Manager Employee?  @relation("EmployeeToEmployee", fields: [ReportsTo], references: [Id])
+  Manages Employee[] @relation("EmployeeToEmployee")
+
+  Orders     Order[]
+  Terriories EmployeeTerritory[]
+}
+
+model EmployeeTerritory {
+  Id          String @id @unique
+  EmployeeId  Int
+  TerritoryId String
+
+  Territory Territory @relation(fields: [TerritoryId], references: [Id])
+  Employee  Employee  @relation(fields: [EmployeeId], references: [Id])
+}
+
+model Order {
+  Id             Int     @id @default(autoincrement())
+  CustomerId     String
+  EmployeeId     Int
+  OrderDate      String
+  RequiredDate   String
+  ShippedDate    String
+  ShipVia        Int
+  Freight        Decimal
+  ShipName       String
+  ShipAddress    String
+  ShipCity       String
+  ShipRegion     String
+  ShipPostalCode String?
+  ShipCountry    String
+
+  Customer  Customer @relation(fields: [CustomerId], references: [Id])
+  Employee  Employee @relation(fields: [EmployeeId], references: [Id])
+  ShippedBy Shipper  @relation(fields: [ShipVia], references: [Id])
+
+  OrderDetail OrderDetail?
+}
+
+model OrderDetail {
+  Id        String  @id @unique
+  OrderId   Int     @unique
+  ProductId Int
+  UnitPrice Decimal
+  Quantity  Int
+  Discount  Float
+
+  Product Product @relation(fields: [ProductId], references: [Id])
+  Order   Order   @relation(fields: [OrderId], references: [Id])
+}
+
+model Product {
+  Id              Int     @id @default(autoincrement())
+  ProductName     String
+  SupplierId      Int
+  CategoryId      Int
+  QuantityPerUnit String
+  UnitPrice       Decimal
+  UnitsInStock    Int
+  UnitsOnOrder    Int
+  ReorderLevel    Int
+  Discontinued    Int
+
+  OrderDetail OrderDetail[]
+  Suppliers   Supplier      @relation(fields: [SupplierId], references: [Id])
+  Category    Category      @relation(fields: [CategoryId], references: [Id])
+}
+
+model Region {
+  Id                Int    @id @default(autoincrement())
+  RegionDescription String
+}
+
+model Shipper {
+  Id          Int     @id @default(autoincrement())
+  CompanyName String
+  Phone       String
+  Order       Order[]
+}
+
+model Supplier {
+  Id           Int    @id @default(autoincrement())
+  CompanyName  String
+  ContactName  String
+  ContactTitle String
+  Address      String
+  City         String
+  Region       String
+  PostalCode   String
+  Country      String
+  Phone        String
+  Fax          String
+  HomePage     String
+
+  Products Product[]
+}
+
+model Territory {
+  Id                   String              @id @unique
+  TerritoryDescription String
+  RegionId             Int
+  EmployeeTerritories  EmployeeTerritory[]
+}
