@@ -2,9 +2,12 @@
   "name": "northwind-store",
   "version": "1.0.0",
   "license": "MIT",
+  "private": "true",
   "scripts": {
     "api": "npm run dev --workspace=api",
-    "svelte": "npm run dev --workspace=svelte"
+    "svelte": "npm run dev --workspace=svelte",
+    "deploy": "firebase deploy",
+    "emulator": "firebase emulators:start"
   },
   "workspaces": [
     "packages/*"

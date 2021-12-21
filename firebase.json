@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "source": "packages/api"
+  },
+  "emulators": {
+    "functions": {
+      "port": 9091
+    },
+    "ui": {
+      "enabled": true
+    }
+  }
+}
