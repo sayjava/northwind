@@ -25,17 +25,17 @@ model Category {
 }
 
 model Customer {
-  Id           String @id @unique
-  CompanyName  String
+  Id           String  @id @unique
+  CompanyName  String?
   ContactName  String
-  ContactTitle String
-  Address      String
-  City         String
-  Region       String
-  PostalCode   String
-  Country      String
-  Phone        String
-  Fax          String
+  ContactTitle String?
+  Address      String?
+  City         String?
+  Region       String?
+  PostalCode   String?
+  Country      String?
+  Phone        String?
+  Fax          String?
 
   Orders Order[]
 }
@@ -95,7 +95,7 @@ model Order {
   Employee  Employee @relation(fields: [EmployeeId], references: [Id])
   ShippedBy Shipper  @relation(fields: [ShipVia], references: [Id])
 
-  OrderDetail OrderDetail?
+  OrderDetail OrderDetail[]
 }
 
 model OrderDetail {

@@ -3,11 +3,27 @@
     "source": "packages/api"
   },
   "emulators": {
+    "hosting": {
+      "port": 9090
+    },
     "functions": {
       "port": 9091
     },
     "ui": {
       "enabled": true
     }
-  }
+  },
+  "hosting": [
+    {
+      "target": "svelte-northwind",
+      "public": "packages/svelte/build",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [
+        {
+          "source": "/svelte/**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
 }

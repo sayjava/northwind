@@ -4,9 +4,13 @@
   "license": "MIT",
   "private": "true",
   "scripts": {
-    "api": "npm run dev --workspace=api",
-    "svelte": "npm run dev --workspace=svelte",
+    "dev:api": "npm --prefix packages/api run dev",
+    "build:api": "npm --prefix packages/api run build",
+    "dev:svelte": "npm --prefix packages/svelte run dev",
+    "build:svelte": "npm --prefix packages/svelte run build",
+    "predeploy": "npm run build:api && npm run build:svelte",
     "deploy": "firebase deploy",
+    "preemulator": "npm run build:api",
     "emulator": "firebase emulators:start"
   },
   "workspaces": [

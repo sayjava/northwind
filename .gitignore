@@ -6,4 +6,4 @@ packages/api/prisma/generated
 yarn.lock
 package-lock.json
 *.log
-lib
+packages/api/lib

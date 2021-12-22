@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "northwind-b0ae9"
+  },
+  "targets": {
+    "northwind-b0ae9": {
+      "hosting": {
+        "svelte-northwind": [
+          "svelte-northwind"
+        ]
+      }
+    }
   }
 }
