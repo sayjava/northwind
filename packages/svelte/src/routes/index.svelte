@@ -46,17 +46,20 @@
 </script>
 
 {#if orders}
-	<div>
-		<table>
+	<div class="card">
+		<h3 class="title">Orders</h3>
+		<table class="bordered">
 			<thead>
-				<th>Id</th>
-				<th>Order Date</th>
-				<th>Shipped Date</th>
-				<th>Customer</th>
-				<th>Sales Person</th>
-				<th>Country</th>
-				<th>Shipped By</th>
-				<th />
+				<tr>
+					<th>Id</th>
+					<th>Order Date</th>
+					<th>Shipped Date</th>
+					<th>Customer</th>
+					<th>Sales Person</th>
+					<th>Country</th>
+					<th>Shipped By</th>
+					<th />
+				</tr>
 			</thead>
 			<tbody>
 				{#each orders as order}
@@ -83,7 +86,7 @@
 							</a>
 						</td>
 						<td>
-							<a href={`/orders/${order.Id}`}> Details </a>
+							<a role="button" class="outline" href={`/orders/${order.Id}`}> Details </a>
 						</td>
 					</tr>
 				{/each}
